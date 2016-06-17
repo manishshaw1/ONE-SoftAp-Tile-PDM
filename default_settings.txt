@@ -7,7 +7,7 @@ Scenario.name = default_scenario
 Scenario.simulateConnections = true
 Scenario.updateInterval = 0.1
 # 43k ~= 12h
-Scenario.endTime = 12800
+Scenario.endTime = 36000
 
 # "Bluetooth" interface for all nodes
 btInterface.type = SimpleBroadcastInterface
@@ -64,7 +64,7 @@ Group2.groupID = DM_
 Group2.bufferSize =50M
 Group2.speed = 3, 4
 Group2.nrofHosts = 1
-Group2.movementModel = ShortestPathMapBasedMovement
+Group2.movementModel = ExternalMovement
 Group2.okMaps = 1
 Group2.nrofInterfaces = 1
 Group2.interface1 = wifiInterface
@@ -73,8 +73,8 @@ Group2.interface1 = wifiInterface
 ####################################################################################
 
 #Cluster1
-	Group3.clusterCenter = 1450,950
-	Group3.dblocation = 1450,950
+	Group3.clusterCenter = 800,600
+	Group3.dblocation = 800,600
 	Group3.groupID = NODE_T1_
 	Group3.bufferSize = 5M
 	Group3.nrofHosts = 5
@@ -88,8 +88,8 @@ Group2.interface1 = wifiInterface
 
 
 #Cluster2   cluster 2
-	Group4.clusterCenter = 2500,2500
-	Group4.dblocation = 2500,2500
+	Group4.clusterCenter = 1500,1500
+	Group4.dblocation = 1500,1500
 	Group4.groupID = NODE_T2_
 	Group4.bufferSize = 5M
 	Group4.nrofHosts = 5
@@ -178,22 +178,20 @@ Events5.behaviour = D
 # seed for movement models' pseudo random number generator (default = 0)
 MovementModel.rngSeed = 1
 # World's size for Movement Models without implicit size (width, height; meters)
-MovementModel.worldSize = 4500, 4500
+MovementModel.worldSize = 2500, 2500
 # How long time to move hosts in the world before real simulation
 MovementModel.warmup = 1000
 
 ## Map based movement -movement model specific settings
-MapBasedMovement.nrofMapFiles = 4
+MapBasedMovement.nrofMapFiles = 1
 
-MapBasedMovement.mapFile1 = data/roads.wkt
-MapBasedMovement.mapFile2 = data/main_roads.wkt
-MapBasedMovement.mapFile3 = data/pedestrian_paths.wkt
-MapBasedMovement.mapFile4 = data/shops.wkt
+MapBasedMovement.mapFile1 = data/NIT/NIT.wkt
+
 
 ## Reports
 Report.nrofReports = 2
 Report.warmup = 0
-Report.reportDir = reports/test3
+Report.reportDir = reports/test
 Report.report1 = MessageStatsReport
 Report.report2 = EventLogReport
 
@@ -216,7 +214,7 @@ Optimization.randomizeUpdateOrder = true
 ## GUI settings
 
 # GUI underlay image settings
-GUI.UnderlayImage.fileName = data/helsinki_underlay.png
+GUI.UnderlayImage.fileName = data/NIT/final_map.jpg
 # Image offset in pixels (x, y)
 GUI.UnderlayImage.offset = 64, 20
 # Scaling factor for the image
