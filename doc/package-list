@@ -1,0 +1,17 @@
+applications
+core
+gui
+gui.playfield
+input
+interfaces
+movement
+movement.map
+report
+routing
+routing.community
+routing.contentpubsub
+routing.decisionengine
+routing.maxprop
+routing.pubsub
+routing.schedule
+ui
