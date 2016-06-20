@@ -34,12 +34,16 @@ public class DTNHost implements Comparable<DTNHost>, Iterable<Connection> {
 	private List<MovementListener> movListeners;
 	private List<NetworkInterface> net;
 	private ModuleCommunicationBus comBus;
-	private SortedSet set;
+	public SortedSet set;
 	private HashMap<String , Acknowledge> ACKlist;
 	public Coord[] arr;
 	public int maxX;
 	public int maxY;
-	public int nrOfCells = 9;
+	public int nrOfCells;
+	public int tileSize;
+	public int locX;
+	public int locY;
+	
 	
 
 	static {
@@ -60,7 +64,7 @@ public class DTNHost implements Comparable<DTNHost>, Iterable<Connection> {
 			List<MovementListener> movLs,
 			String groupId, List<NetworkInterface> interf,
 			ModuleCommunicationBus comBus, 
-			MovementModel mmProto, MessageRouter mRouterProto) {
+			MovementModel mmProto, MessageRouter mRouterProto, int nrOfCells, int tileSize) {
 		this.comBus = comBus;
 		this.location = new Coord(0,0);
 		this.address = getNextAddress();
@@ -70,6 +74,9 @@ public class DTNHost implements Comparable<DTNHost>, Iterable<Connection> {
 		this.arr = new Coord[101];
 		this.maxX = maxX;
 		this.maxY = maxY;
+		this.nrOfCells = nrOfCells;
+		this.tileSize = tileSize;
+		//initialTile();
 				
 		int temp = (int)Math.sqrt(nrOfCells);
 		if(temp*temp==nrOfCells){
@@ -143,24 +150,18 @@ public class DTNHost implements Comparable<DTNHost>, Iterable<Connection> {
 		return this.movement.isActive();
 	}
 	//Manish_start
-	public void randomTiles(){
-		int total = nrOfCells * nrOfCells;
-		//System.out.println(total);
-		set = new TreeSet(); 
-		for(int i=0;i<(total/20);i++)
-		{
-			int randomNum = 0 + (int)(Math.random() * total);
-			set.add(randomNum);
-			
-		}
-			
+	public void initialTile(){
+		this.locX = (int)(location.getX()/(2500/nrOfCells));
+		this.locY = (int)(location.getY()/(2500/nrOfCells));
+		int c = this.locY * nrOfCells + this.locX;
+		set.add(c);
+		System.out.println(c);
+		
 	}
-	public void setSet(SortedSet set1){
-		this.set = set1;
+	public SortedSet getTile(){
+		return set;
 	}
-	public SortedSet getSet(){
-		return this.set;
-	}
+	
 	
 	//Manish_end
 
@@ -449,16 +450,7 @@ public class DTNHost implements Comparable<DTNHost>, Iterable<Connection> {
 				this.location.getY());
 		this.location.translate(dx, dy);
 	}	
-	//Manish_start
-	/*public double getXloc()
-	{
-		return(this.destination.getX());
-	}	
-	public double getYloc()
-	{
-		return(this.destination.getY());
-	}*/
-	//Manish_end
+	
 
 	/**
 	 * Sets the next destination and speed to correspond the next waypoint

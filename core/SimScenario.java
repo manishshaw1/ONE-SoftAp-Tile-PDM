@@ -90,6 +90,12 @@ public class SimScenario implements Serializable {
 	
 	/** package where to look for application classes */
 	private static final String APP_PACKAGE = "applications.";
+
+	 /** the number of cells in which the world should be devided**/
+	public static final String NO_OF_CELLS = "nrOfCells";
+
+	/* Size of the tile */
+	public static final String SIZE_OF_TILE = "tileSize";
 	
 	/** The world instance */
 	private World world;
@@ -126,6 +132,12 @@ public class SimScenario implements Serializable {
 	private List<UpdateListener> updateListeners;
 	/** Global application event listeners */
 	private List<ApplicationListener> appListeners;
+	//----storing total no of cells--//
+	private int nrOfCells;
+	/* Storing the size of tile */
+	private int tileSize;
+	//---------------------------//
+
 
 	static {
 		DTNSim.registerForReset(SimScenario.class.getCanonicalName());
@@ -147,6 +159,24 @@ public class SimScenario implements Serializable {
 		this.endTime = s.getDouble(END_TIME_S);
 		this.updateInterval = s.getDouble(UP_INT_S);
 		this.simulateConnections = s.getBoolean(SIM_CON_S);
+		if(s.contains(NO_OF_CELLS)){
+		   nrOfCells = s.getInt(NO_OF_CELLS);	
+		}
+		else{
+			nrOfCells = 4;
+		}
+
+		if(nrOfCells>100)
+		{
+			throw new SettingsError("Too many cells (" + nrOfCells +
+					") for " + SCENARIO_NS);
+		}
+		if(s.contains(SIZE_OF_TILE)){
+			tileSize = s.getInt(SIZE_OF_TILE);
+		}
+		else{
+			tileSize = 2;
+		}	
 
 		ensurePositiveValue(nrofGroups, NROF_GROUPS_S);
 		ensurePositiveValue(endTime, END_TIME_S);
@@ -424,7 +454,8 @@ public class SimScenario implements Serializable {
 				// new instances of movement model and message router
 				DTNHost host = new DTNHost(this.messageListeners, 
 						this.movementListeners,	gid, mmNetInterfaces, comBus, 
-						mmProto, mRouterProto);
+						mmProto, mRouterProto,this.nrOfCells,this.tileSize);
+				//host.initialTile();
 				hosts.add(host);
 			}
 		}

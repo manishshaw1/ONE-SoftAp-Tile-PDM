@@ -42,8 +42,8 @@ public abstract class ActiveRouter extends MessageRouter {
 	protected ArrayList<Connection> sendingConnections;
 	/** sim time when the last TTL check was done */
 	private double lastTtlCheck;
-	private SortedSet set1;
-	private SortedSet set2;
+	private SortedSet setTo;
+	private SortedSet setFrom;
 
 	/**
 	 * Constructor. Creates a new message router based on the settings in
@@ -611,12 +611,12 @@ public abstract class ActiveRouter extends MessageRouter {
 				DTNHost from=con.getOtherNode(con.getHost());
 				if(!con.isSender(to))
 				{
-					set1 = to.getSet();
-					set2 = from.getSet();
-					System.out.println(to + " " + set1);
-					System.out.println(from + " " + set2);
-					set1.addAll(set2);
-			        System.out.println("=" + set1);
+					setTo = to.set;
+					setFrom = from.set;
+					System.out.println(to + " " + setTo);
+					System.out.println(from + " " + setFrom);
+					setTo.addAll(setFrom);
+			        System.out.println("=" + setTo);
 			       	/*
 			        set2.addAll(intersect);
 			        Set intersect1 = new TreeSet(set2);

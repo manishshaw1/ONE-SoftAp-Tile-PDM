@@ -8,6 +8,8 @@ Scenario.simulateConnections = true
 Scenario.updateInterval = 0.1
 # 43k ~= 12h
 Scenario.endTime = 36000
+Scenario.nrOfCells = 9
+Scenario.tileSize = 2
 
 # "Bluetooth" interface for all nodes
 btInterface.type = SimpleBroadcastInterface
