@@ -44,7 +44,6 @@ public class DTNHost implements Comparable<DTNHost>, Iterable<Connection> {
 	public int locX;
 	public int locY;
 	
-	
 
 	static {
 		DTNSim.registerForReset(DTNHost.class.getCanonicalName());
@@ -76,7 +75,7 @@ public class DTNHost implements Comparable<DTNHost>, Iterable<Connection> {
 		this.maxY = maxY;
 		this.nrOfCells = nrOfCells;
 		this.tileSize = tileSize;
-		//initialTile();
+		
 				
 		int temp = (int)Math.sqrt(nrOfCells);
 		if(temp*temp==nrOfCells){
@@ -115,7 +114,8 @@ public class DTNHost implements Comparable<DTNHost>, Iterable<Connection> {
 		setRouter(mRouterProto.replicate());
 
 		this.location = movement.getInitialLocation();
-
+		//System.out.println("--->"+this.location);
+		this.initialTile();
 		this.nextTimeToMove = movement.nextPathAvailable();
 		this.path = null;
 
@@ -154,15 +154,19 @@ public class DTNHost implements Comparable<DTNHost>, Iterable<Connection> {
 		this.locX = (int)(location.getX()/(2500/nrOfCells));
 		this.locY = (int)(location.getY()/(2500/nrOfCells));
 		int c = this.locY * nrOfCells + this.locX;
-		set.add(c);
-		System.out.println(c);
+		set = new TreeSet();
+		//System.out.println("Tile ");
+		this.set.add(c);
+		//System.out.println("Tile " + set);
 		
 	}
-	public SortedSet getTile(){
-		return set;
+	public SortedSet getSet(){
+		if(this.set == null)
+			return null;
+		else
+			return this.set;
+		//.toArray(new String[this.set.size()]);
 	}
-	
-	
 	//Manish_end
 
 	/**

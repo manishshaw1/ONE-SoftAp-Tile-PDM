@@ -9,11 +9,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
+import java.lang.Math;
+import routing.MessageRouter;
 /**
  * A message that is created at a node or passed between nodes.
  */
-public class Message implements Comparable<Message> {
+public class Message implements Comparable<Message>{
 	/** Value for infinite TTL of message */
 	public static final int INFINITE_TTL = -1;
 	private DTNHost from;
@@ -48,6 +49,9 @@ public class Message implements Comparable<Message> {
 	
 	/** Application ID of the application that created the message */
 	private String	appID;
+	public double difference;
+	public double adf;
+	public double imom;
 	
 	static {
 		reset();
@@ -131,6 +135,7 @@ public class Message implements Comparable<Message> {
 		this.path.add(node);
 	}
 	
+	
 	/**
 	 * Returns a list of nodes this message has passed so far
 	 * @return The list as vector
@@ -196,6 +201,19 @@ public class Message implements Comparable<Message> {
 	 */
 	public double getCreationTime() {
 		return this.timeCreated;
+	}
+	public double AgeDecayFactor()
+	{
+		SimClock s;
+		difference = getCreationTime() - s.getTime();
+		adf = Math.pow(2.71828, difference);
+		return adf;
+	}
+	public double Importance_of_msg()
+	{
+		MessageRouter r;
+		imom = r.Information_of_msg(this.id) * AgeDecayFactor();
+		return imom;
 	}
 	
 	/**

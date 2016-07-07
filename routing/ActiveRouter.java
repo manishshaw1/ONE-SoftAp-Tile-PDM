@@ -611,12 +611,12 @@ public abstract class ActiveRouter extends MessageRouter {
 				DTNHost from=con.getOtherNode(con.getHost());
 				if(!con.isSender(to))
 				{
-					setTo = to.set;
-					setFrom = from.set;
-					System.out.println(to + " " + setTo);
-					System.out.println(from + " " + setFrom);
-					setTo.addAll(setFrom);
-			        System.out.println("=" + setTo);
+					//System.out.println(to.set + " " + from.set);
+					(to.set).addAll(from.set);
+					//System.out.println("----->" + to.set);
+					(from.set).addAll(to.set);
+					//System.out.println("==" + from.set);
+			        
 			       	/*
 			        set2.addAll(intersect);
 			        Set intersect1 = new TreeSet(set2);

@@ -32,65 +32,76 @@ APInterface.transmitRange = 100
 
 
 ##########number of host groups################
-Scenario.nrofHostGroups = 3
+Scenario.nrofHostGroups = 4
 ###############################################
-
-ExternalMovement.file = External_Movement.txt
+ExternalMovement.file = ext1.txt
 # common settings for all groups
 Group.router = EpidemicRouter
 Group.bufferSize = 5M
 Group.waitTime = 0, 120
 #All nodes have the firstinterface inteface
 Group.nrofInterfaces = 1
-Group.interface1 = wifiInterface
+Group.interface1 = btInterface
 # walking speeds
 Group.speed = 0.5, 1.5
 #######Possion############
 Group.clusterRange = 200
 Group.msgTtl = 60
-Group.nrofHosts = 8
-
+Group.nrofHosts = 13
 ################################################################################
 
 #STATIC_SOFT_AP
-Group1.groupID = maincenter
-Group1.nrofHosts = 1
-Group1.movementModel = pdm.CenterMovement
-Group1.centerType = mainreliefcenter
-Group1.okMaps = 1
-Group1.speed = 0.0, 0.0
-Group1.bufferSize = 50M
+Group1.groupID = IDB_SAP_
+Group1.nrofHosts = 2
+Group1.movementModel = ExternalMovement
+Group1.bufferSize =50M
+Group1.speed = 0, 0
 Group1.nrofInterfaces = 1
 Group1.interface1 = APInterface
 
 ###################################################################################
 
-Group2.groupID = neighborhood
-Group2.bufferSize = 5M
-Group2.nrofHosts = 5
-Group2.movementModel = pdm.CenterMovement
-Group2.centerType = neighborhood
+##Soft_AP
+Group2.groupID = DM_
+Group2.bufferSize =50M
+Group2.speed = 3, 4
+Group2.nrofHosts = 1
+Group2.movementModel = ExternalMovement
+Group2.okMaps = 1
 Group2.nrofInterfaces = 1
 Group2.interface1 = wifiInterface
-Group2.activeTimes = 0,36000
-Group2.speed = 0.5, 0.8
-Group2.neighborhood = 3
-Group2.radius = 500
+#Group2.waypoints= 1450,950, 2500,2500, 1450,950
 
-###################################################################################
+####################################################################################
 
-Group3.groupID = DM_
-Group3.bufferSize = 5M
-Group3.nrofHosts = 2
-Group3.movementModel = pdm.InCenterVehicleMovement
-Group3.homeCenterType = mainreliefcenter
-Group3.targetCenters = neighborhood
-Group3.nrofInterfaces = 1
-Group3.interface1 = wifiInterface
-Group3.activeTimes = 0,36000
-Group3.speed = 0.5, 0.8
-Group3.neighborhood = 5
-Group3.radius = 500
+#Cluster1
+	Group3.clusterCenter = 800,600
+	Group3.dblocation = 800,600
+	Group3.groupID = NODE_T1_
+	Group3.bufferSize = 5M
+	Group3.nrofHosts = 5
+	Group3.movementModel = pdm.VolunteerMovement
+	Group3.nrofInterfaces = 1
+	Group3.interface1 = wifiInterface
+	Group3.activeTimes = 0,4800
+	Group3.speed = 0.5, 0.8
+	Group3.neighborhood = 3
+	Group3.radius = 500
+
+
+#Cluster2   cluster 2
+	Group4.clusterCenter = 1500,1500
+	Group4.dblocation = 1500,1500
+	Group4.groupID = NODE_T2_
+	Group4.bufferSize = 5M
+	Group4.nrofHosts = 5
+	Group4.movementModel = pdm.VolunteerMovement
+	Group4.nrofInterfaces = 1
+	Group4.interface1 = wifiInterface
+	Group4.activeTimes = 0,4800
+	Group4.speed = 0.5, 0.8
+	Group4.neighborhood = 3
+	Group4.radius = 500
 
 
 ## Message creation parameters 
@@ -104,9 +115,9 @@ Events1.interval = 60,70
 # Message sizes (500kB - 1MB)
 Events1.size = 500k,1M
 # range of message source/destination addresses
-Events1.hosts = 0,7
+Events1.hosts = 0,12
 # Message ID prefix
-Events1.prefix = GPS_
+Events1.prefix = GPS
 Events1.behaviour = N
 
 # Class of the second event generator
@@ -118,7 +129,7 @@ Events2.dynamicInterval = 60,70
 # Message sizes (10kB - 1MB)
 Events2.size = 10k,1M
 # range of message source/destination addresses
-Events2.hosts = 0,7
+Events2.hosts = 0,12
 # Message ID prefix
 Events2.prefix = VICTIM_
 Events2.behaviour = D
@@ -132,7 +143,7 @@ Events3.dynamicInterval = 60,70
 # Message sizes (10kB - 1MB)
 Events3.size = 10k,1M
 # range of message source/destination addresses
-Events3.hosts = 0,7
+Events3.hosts = 0,12
 # Message ID prefix
 Events3.prefix = FOOD_
 Events3.behaviour = D
@@ -146,7 +157,7 @@ Events4.dynamicInterval = 60,70
 # Message sizes (10kB - 1MB)
 Events4.size = 10k,1M
 # range of message source/destination addresses
-Events4.hosts = 0,7
+Events4.hosts = 0,12
 # Message ID prefix
 Events4.prefix = SHELTER_
 Events4.behaviour = D
@@ -160,7 +171,7 @@ Events5.dynamicInterval = 60,70
 # Message sizes (10kB - 1MB)
 Events5.size = 10k,1M
 # range of message source/destination addresses
-Events5.hosts = 0,7
+Events5.hosts = 0,12
 # Message ID prefix
 Events5.prefix = HEALTH_
 Events5.behaviour = D

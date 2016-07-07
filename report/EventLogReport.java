@@ -39,11 +39,11 @@ public class EventLogReport extends Report
 	 */
 	private void processEvent(final String action, final DTNHost host1, 
 			final DTNHost host2, final Message message, final String extra) {
-		
-		write(getSimTime() + " " + action + " " + (host1 != null ? host1 : "") 
-				+ (host2 != null ? (" " + host2) : "")
+		//host1.initialTile();
+		write(getSimTime() + " " + action + " " + (host1 != null ? host1+ " T" + host1.getSet() : "") 
+				+ (host2 != null ? (" " + host2 + " T" + host2.getSet()) : "")
 				+ (message != null ? " " + message : "") 
-				+ (extra != null ? " " + extra : ""));
+				+ (extra != null ? " " + extra : "") );
 	}
 	
 	public void hostsConnected(DTNHost host1, DTNHost host2) {

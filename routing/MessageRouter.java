@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
-
+import java.lang.Math;
 import core.Application;
 import core.Connection;
 import core.DTNHost;
@@ -87,6 +87,12 @@ public abstract class MessageRouter {
 
 	/** applications attached to the host */
 	private HashMap<String, Collection<Application>>	applications = null;
+	public double inom;
+	public double probability;
+	public static int countVictim;
+	public static int countFood;
+	public static int countShelter;
+	public static int countHealth;
 	
 	/**
 	 * Constructor. Creates a new message router based on the settings in
@@ -131,6 +137,10 @@ public abstract class MessageRouter {
 		this.deliveredMessages = new HashMap<String, Message>();
 		this.mListeners = mListeners;
 		this.host = host;
+		countVictim = 0;
+		countFood = 0;
+		countShelter = 0;
+		countHealth = 0;
 	}
 	
 	/**
@@ -254,6 +264,25 @@ public abstract class MessageRouter {
 	 */
 	protected DTNHost getHost() {
 		return this.host;
+	}
+	public double Information_of_msg(String s)
+	{
+		inom = (double)(Math.log(this.Probability(s)) / Math.log(2));
+		return inom;
+	}
+	public double Probability(String s)
+	{
+		if(s.charAt(0)=='V')
+			probability = countVictim/getNrofMessages();
+		else if(s.charAt(0)=='H')
+			probability = countHealth/getNrofMessages();
+		else if(s.charAt(0)=='S')
+			probability = countShelter/getNrofMessages();
+		else
+			probability = countFood/getNrofMessages();
+		
+		return (1.0/probability);
+		
 	}
 	
 	/**
@@ -395,6 +424,15 @@ public abstract class MessageRouter {
 	 * message, if false, nothing is informed.
 	 */
 	protected void addToMessages(Message m, boolean newMessage) {
+		String s = m.getId();
+		if(s.charAt(0)=='V')
+			countVictim++;
+		else if(s.charAt(0)=='H')
+			countHealth++;
+		else if(s.charAt(0)=='S')
+			countShelter++;
+		else
+			countFood++;
 		this.messages.put(m.getId(), m);
 		
 		if (newMessage) {
