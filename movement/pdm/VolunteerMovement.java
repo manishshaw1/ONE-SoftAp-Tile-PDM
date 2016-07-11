@@ -55,7 +55,7 @@ public class VolunteerMovement extends MapBasedMovement {
 		// Settings s = new Settings("Group" + clusterno);
 		String values[] = settings.getCsvSetting("dblocation");
 		Coord dbCoord = new Coord(Double.parseDouble(values[0]),
-				Double.parseDouble(values[1]));
+		Double.parseDouble(values[1]));
 
 		dbMapNode = map.getClosestMapNode(dbCoord);
 		//if (dbMapNode.getLocation().distance(home.getLocation()) > radius)

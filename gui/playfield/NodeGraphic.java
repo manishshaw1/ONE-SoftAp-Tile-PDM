@@ -71,8 +71,8 @@ public class NodeGraphic extends PlayFieldGraphic {
 				Line2D.Double temp1;
 				Line2D.Double temp2;
 
-				int x=2500/node.nrOfCells;
-				int y=2500/node.nrOfCells;
+				int x = 6000/node.nrOfCells;
+				int y = 6000/node.nrOfCells;
 				coverage = new Ellipse2D.Double(scale(loc.getX()-range),
 						scale(loc.getY()-range), scale(range * 2), scale(range * 2)); 
 		       // draw the "range" circle
@@ -81,11 +81,11 @@ public class NodeGraphic extends PlayFieldGraphic {
 				int p=0;
 
 				for(int i = 0;i< node.nrOfCells;i++){
-					temp1 = new Line2D.Double(scale(x+p),scale(0), scale(x+p), scale(2500));
-					temp2 = new Line2D.Double(scale(0),scale(y+p), scale(2500), scale(y+p));
+					temp1 = new Line2D.Double(scale(x+p),scale(0), scale(x+p), scale(6000));
+					temp2 = new Line2D.Double(scale(0),scale(y+p), scale(6000), scale(y+p));
 						//scale(node.arr[i].getX()),scale(node.arr[i].getY()), scale(range/4), scale(range/4));
 					p=p+x;
-					g2.setColor(Color.RED);
+					g2.setColor(Color.BLACK);
 					g2.draw(temp1);
 					g2.draw(temp2);
 				//if(i==index-1)

@@ -32,66 +32,100 @@ APInterface.transmitRange = 100
 
 
 ##########number of host groups################
-Scenario.nrofHostGroups = 3
+Scenario.nrofHostGroups = 5
 ###############################################
 
 ExternalMovement.file = External_Movement.txt
 # common settings for all groups
-Group.router = EpidemicRouter
-Group.bufferSize = 5M
 Group.waitTime = 0, 120
 #All nodes have the firstinterface inteface
 Group.nrofInterfaces = 1
+Group.router = EpidemicRouter
 Group.interface1 = wifiInterface
 # walking speeds
 Group.speed = 0.5, 1.5
 #######Possion############
-Group.clusterRange = 200
+Group.clusterRange = 1000
 Group.msgTtl = 60
-Group.nrofHosts = 8
+Group.nrofHosts = 7
 
 ################################################################################
 
 #STATIC_SOFT_AP
-Group1.groupID = maincenter
+Group1.groupID = MC1_
 Group1.nrofHosts = 1
-Group1.movementModel = pdm.CenterMovement
+Group1.movementModel = StationaryMovement
+Group1.nodeLocation = 1585,25
 Group1.centerType = mainreliefcenter
 Group1.okMaps = 1
-Group1.speed = 0.0, 0.0
 Group1.bufferSize = 50M
 Group1.nrofInterfaces = 1
 Group1.interface1 = APInterface
 
 ###################################################################################
 
-Group2.groupID = neighborhood
+Group2.groupID = N1_
+Group2.clusterCenter = 1600,20
+Group2.dblocation = 1600,20
 Group2.bufferSize = 5M
-Group2.nrofHosts = 5
-Group2.movementModel = pdm.CenterMovement
+Group2.nrofHosts = 2
+Group2.movementModel = VolunteerMovement
 Group2.centerType = neighborhood
 Group2.nrofInterfaces = 1
 Group2.interface1 = wifiInterface
 Group2.activeTimes = 0,36000
-Group2.speed = 0.5, 0.8
+Group2.speed = 2,5
 Group2.neighborhood = 3
-Group2.radius = 500
+Group2.radius = 1000
 
 ###################################################################################
 
-Group3.groupID = DM_
+Group3.groupID = N2_
+Group3.clusterCenter = 2400,1250
+Group3.dblocation = 2400,1250
 Group3.bufferSize = 5M
 Group3.nrofHosts = 2
-Group3.movementModel = pdm.InCenterVehicleMovement
-Group3.homeCenterType = mainreliefcenter
-Group3.targetCenters = neighborhood
+Group3.movementModel = VolunteerMovement
+Group3.centerType = neighborhood
 Group3.nrofInterfaces = 1
 Group3.interface1 = wifiInterface
 Group3.activeTimes = 0,36000
-Group3.speed = 0.5, 0.8
-Group3.neighborhood = 5
-Group3.radius = 500
+Group3.speed = 2,5
+Group3.neighborhood = 3
+Group3.radius = 1000
 
+###################################################################################
+
+#STATIC_SOFT_AP
+Group4.groupID = MC2_
+Group4.nrofHosts = 1
+Group4.movementModel = StationaryMovement
+Group4.nodeLocation = 2400,1250
+Group4.centerType = mainreliefcenter
+Group4.okMaps = 1
+Group4.bufferSize = 50M
+Group4.nrofInterfaces = 1
+Group4.interface1 = APInterface
+
+####################################################################################
+
+Group5.groupID = DM_
+Group5.bufferSize = 5M
+Group5.nrofHosts = 1
+Group5.movementModel = MapRouteMovement
+Group5.routeFile = data/main_roads.wkt
+Group5.routeType = 1
+Group5.homeCenterType = mainreliefcenter
+Group5.targetCenters = neighborhood
+Group5.nrofInterfaces = 1
+Group5.waitime = 1000
+Group5.interface1 = wifiInterface
+Group5.activeTimes = 0,36000
+Group5.speed = 2,3
+Group5.neighborhood = 5
+Group5.radius = 500
+
+#########################################################################################
 
 ## Message creation parameters 
 # How many event generators
@@ -104,7 +138,7 @@ Events1.interval = 60,70
 # Message sizes (500kB - 1MB)
 Events1.size = 500k,1M
 # range of message source/destination addresses
-Events1.hosts = 0,7
+Events1.hosts = 0,6
 # Message ID prefix
 Events1.prefix = GPS_
 Events1.behaviour = N
@@ -118,7 +152,7 @@ Events2.dynamicInterval = 60,70
 # Message sizes (10kB - 1MB)
 Events2.size = 10k,1M
 # range of message source/destination addresses
-Events2.hosts = 0,7
+Events2.hosts = 0,6
 # Message ID prefix
 Events2.prefix = VICTIM_
 Events2.behaviour = D
@@ -132,7 +166,7 @@ Events3.dynamicInterval = 60,70
 # Message sizes (10kB - 1MB)
 Events3.size = 10k,1M
 # range of message source/destination addresses
-Events3.hosts = 0,7
+Events3.hosts = 0,6
 # Message ID prefix
 Events3.prefix = FOOD_
 Events3.behaviour = D
@@ -146,7 +180,7 @@ Events4.dynamicInterval = 60,70
 # Message sizes (10kB - 1MB)
 Events4.size = 10k,1M
 # range of message source/destination addresses
-Events4.hosts = 0,7
+Events4.hosts = 0,6
 # Message ID prefix
 Events4.prefix = SHELTER_
 Events4.behaviour = D
@@ -160,7 +194,7 @@ Events5.dynamicInterval = 60,70
 # Message sizes (10kB - 1MB)
 Events5.size = 10k,1M
 # range of message source/destination addresses
-Events5.hosts = 0,7
+Events5.hosts = 0,6
 # Message ID prefix
 Events5.prefix = HEALTH_
 Events5.behaviour = D
@@ -169,14 +203,17 @@ Events5.behaviour = D
 # seed for movement models' pseudo random number generator (default = 0)
 MovementModel.rngSeed = 1
 # World's size for Movement Models without implicit size (width, height; meters)
-MovementModel.worldSize = 2500, 2500
+MovementModel.worldSize = 6000,6000
 # How long time to move hosts in the world before real simulation
 MovementModel.warmup = 1000
 
 ## Map based movement -movement model specific settings
-MapBasedMovement.nrofMapFiles = 1
+MapBasedMovement.nrofMapFiles = 4
 
-MapBasedMovement.mapFile1 = data/NIT/NIT.wkt
+MapBasedMovement.mapFile1 = data/roads.wkt
+MapBasedMovement.mapFile2 = data/main_roads.wkt
+MapBasedMovement.mapFile3 = data/pedestrian_paths.wkt
+MapBasedMovement.mapFile4 = data/shops.wkt
 
 
 ## Reports
@@ -205,7 +242,7 @@ Optimization.randomizeUpdateOrder = true
 ## GUI settings
 
 # GUI underlay image settings
-GUI.UnderlayImage.fileName = data/NIT/final_map.jpg
+GUI.UnderlayImage.fileName = data/helsinki_underlay.png
 # Image offset in pixels (x, y)
 GUI.UnderlayImage.offset = 64, 20
 # Scaling factor for the image

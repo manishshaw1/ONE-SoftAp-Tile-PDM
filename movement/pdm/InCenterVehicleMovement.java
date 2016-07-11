@@ -9,9 +9,7 @@
  */
 
 package movement.pdm;
-
 import core.Coord;
-
 import java.util.ArrayList;
 import java.util.List;
 
