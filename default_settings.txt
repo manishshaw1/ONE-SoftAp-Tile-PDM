@@ -32,7 +32,7 @@ APInterface.transmitRange = 100
 
 
 ##########number of host groups################
-Scenario.nrofHostGroups = 5
+Scenario.nrofHostGroups = 7
 ###############################################
 
 ExternalMovement.file = External_Movement.txt
@@ -45,9 +45,9 @@ Group.interface1 = wifiInterface
 # walking speeds
 Group.speed = 0.5, 1.5
 #######Possion############
-Group.clusterRange = 1000
-Group.msgTtl = 60
-Group.nrofHosts = 7
+Group.clusterRange = 500
+Group.msgTtl = 600
+#Group.nrofHosts = 7
 
 ################################################################################
 
@@ -68,7 +68,7 @@ Group2.groupID = N1_
 Group2.clusterCenter = 1600,20
 Group2.dblocation = 1600,20
 Group2.bufferSize = 5M
-Group2.nrofHosts = 2
+Group2.nrofHosts = 1
 Group2.movementModel = VolunteerMovement
 Group2.centerType = neighborhood
 Group2.nrofInterfaces = 1
@@ -84,7 +84,7 @@ Group3.groupID = N2_
 Group3.clusterCenter = 2400,1250
 Group3.dblocation = 2400,1250
 Group3.bufferSize = 5M
-Group3.nrofHosts = 2
+Group3.nrofHosts = 1
 Group3.movementModel = VolunteerMovement
 Group3.centerType = neighborhood
 Group3.nrofInterfaces = 1
@@ -112,20 +112,49 @@ Group4.interface1 = APInterface
 Group5.groupID = DM_
 Group5.bufferSize = 5M
 Group5.nrofHosts = 1
-Group5.movementModel = MapRouteMovement
-Group5.routeFile = data/main_roads.wkt
+Group5.movementModel = pdm.InCenterVehicleMovement
+Group5.targetCenters = mainreliefcenter, neighborhood
+Group5.homeCenterType = neighborhood
+Group5.waypoints = 2400,1250,1600,20,1000,1800
 Group5.routeType = 1
-Group5.homeCenterType = mainreliefcenter
-Group5.targetCenters = neighborhood
 Group5.nrofInterfaces = 1
-Group5.waitime = 1000
 Group5.interface1 = wifiInterface
 Group5.activeTimes = 0,36000
 Group5.speed = 2,3
 Group5.neighborhood = 5
+Group5.waitTime = 600,1200
 Group5.radius = 500
 
 #########################################################################################
+
+#STATIC_SOFT_AP
+Group6.groupID = MC3_
+Group6.nrofHosts = 1
+Group6.movementModel = StationaryMovement
+Group6.nodeLocation = 1000,1800
+Group6.centerType = mainreliefcenter
+Group6.okMaps = 1
+Group6.bufferSize = 50M
+Group6.nrofInterfaces = 1
+Group6.interface1 = APInterface
+
+#########################################################################################
+
+Group7.groupID = N3_
+Group7.clusterCenter = 1000,1800
+Group7.dblocation = 1000,1800
+Group7.bufferSize = 5M
+Group7.nrofHosts = 1
+Group7.movementModel = VolunteerMovement
+Group7.centerType = neighborhood
+Group7.nrofInterfaces = 1
+Group7.interface1 = wifiInterface
+Group7.activeTimes = 0,36000
+Group7.speed = 2,5
+Group7.neighborhood = 3
+Group7.radius = 1000
+
+########################################################################################
 
 ## Message creation parameters 
 # How many event generators

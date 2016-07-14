@@ -71,8 +71,8 @@ public class NodeGraphic extends PlayFieldGraphic {
 				Line2D.Double temp1;
 				Line2D.Double temp2;
 
-				int x = 6000/node.nrOfCells;
-				int y = 6000/node.nrOfCells;
+				int x = 4500/node.nrOfCells;
+				int y = 4500/node.nrOfCells;
 				coverage = new Ellipse2D.Double(scale(loc.getX()-range),
 						scale(loc.getY()-range), scale(range * 2), scale(range * 2)); 
 		       // draw the "range" circle
@@ -81,8 +81,8 @@ public class NodeGraphic extends PlayFieldGraphic {
 				int p=0;
 
 				for(int i = 0;i< node.nrOfCells;i++){
-					temp1 = new Line2D.Double(scale(x+p),scale(0), scale(x+p), scale(6000));
-					temp2 = new Line2D.Double(scale(0),scale(y+p), scale(6000), scale(y+p));
+					temp1 = new Line2D.Double(scale(x+p),scale(0), scale(x+p), scale(4500));
+					temp2 = new Line2D.Double(scale(0),scale(y+p), scale(4500), scale(y+p));
 						//scale(node.arr[i].getX()),scale(node.arr[i].getY()), scale(range/4), scale(range/4));
 					p=p+x;
 					g2.setColor(Color.BLACK);
@@ -114,7 +114,6 @@ public class NodeGraphic extends PlayFieldGraphic {
 
 		g2.setColor(hostColor);	// draw rectangle to host's location
 		g2.drawRect(scale(loc.getX()-1),scale(loc.getY()-1),scale(2),scale(2));
-
 		if (drawNodeName) {
 			g2.setColor(hostNameColor);
 			// Draw node's address next to it

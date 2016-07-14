@@ -1,0 +1,254 @@
+#
+# Default settings for the simulation
+#
+
+## Scenario settings
+Scenario.name = default_scenario
+Scenario.simulateConnections = true
+Scenario.updateInterval = 0.1
+# 43k ~= 12h
+Scenario.endTime = 36000
+Scenario.nrOfCells = 9
+Scenario.tileSize = 2
+
+# "Bluetooth" interface for all nodes
+btInterface.type = SimpleBroadcastInterface
+# Transmit speed of 2 Mbps = 250kBps
+btInterface.transmitSpeed = 250k
+btInterface.transmitRange = 10
+
+wifiInterface.type = SimpleBroadcastInterface
+wifiInterface.transmitSpeed = 5M
+wifiInterface.transmitRange = 100
+
+DBInterface.type = SimpleBroadcastInterface
+DBInterface.transmitSpeed = 256k
+DBInterface.transmitRange = 200
+
+# Wifi AP
+APInterface.type = APInterface
+APInterface.transmitSpeed = 4M
+APInterface.transmitRange = 100
+
+
+##########number of host groups################
+Scenario.nrofHostGroups = 5
+###############################################
+
+ExternalMovement.file = External_Movement.txt
+# common settings for all groups
+Group.waitTime = 0, 120
+#All nodes have the firstinterface inteface
+Group.nrofInterfaces = 1
+Group.router = EpidemicRouter
+Group.interface1 = wifiInterface
+# walking speeds
+Group.speed = 0.5, 1.5
+#######Possion############
+Group.clusterRange = 500
+Group.msgTtl = 600
+Group.nrofHosts = 13
+
+################################################################################
+
+#STATIC_SOFT_AP
+Group1.groupID = MC1_
+Group1.nrofHosts = 1
+Group1.movementModel = StationaryMovement
+Group1.nodeLocation = 1585,25
+Group1.centerType = mainreliefcenter
+Group1.okMaps = 1
+Group1.bufferSize = 50M
+Group1.nrofInterfaces = 1
+Group1.interface1 = APInterface
+
+###################################################################################
+
+Group2.groupID = N1_
+Group2.clusterCenter = 1600,20
+Group2.dblocation = 1600,20
+Group2.bufferSize = 5M
+Group2.nrofHosts = 5
+Group2.movementModel = VolunteerMovement
+Group2.centerType = neighborhood
+Group2.nrofInterfaces = 1
+Group2.interface1 = wifiInterface
+Group2.activeTimes = 0,36000
+Group2.speed = 2,5
+Group2.neighborhood = 3
+Group2.radius = 1000
+
+###################################################################################
+
+Group3.groupID = N2_
+Group3.clusterCenter = 2400,1250
+Group3.dblocation = 2400,1250
+Group3.bufferSize = 5M
+Group3.nrofHosts = 5
+Group3.movementModel = VolunteerMovement
+Group3.centerType = neighborhood
+Group3.nrofInterfaces = 1
+Group3.interface1 = wifiInterface
+Group3.activeTimes = 0,36000
+Group3.speed = 2,5
+Group3.neighborhood = 3
+Group3.radius = 1000
+
+###################################################################################
+
+#STATIC_SOFT_AP
+Group4.groupID = MC2_
+Group4.nrofHosts = 1
+Group4.movementModel = StationaryMovement
+Group4.nodeLocation = 2400,1250
+Group4.centerType = mainreliefcenter
+Group4.okMaps = 1
+Group4.bufferSize = 50M
+Group4.nrofInterfaces = 1
+Group4.interface1 = APInterface
+
+####################################################################################
+
+Group5.groupID = DM_
+Group5.bufferSize = 5M
+Group5.nrofHosts = 1
+Group5.movementModel = MapRouteMovement
+Group5.routeFile = data/roads.wkt
+Group5.routeType = 1
+Group5.nrofInterfaces = 1
+Group5.interface1 = wifiInterface
+Group5.activeTimes = 0,36000
+Group5.speed = 2,3
+Group5.neighborhood = 5
+Group5.waitTime = 0,1200
+Group5.radius = 500
+
+#########################################################################################
+
+## Message creation parameters 
+# How many event generators
+Events.nrof = 5
+# Class of the first event generator
+Events1.class = MessageEventGenerator
+# (following settings are specific for the MessageEventGenerator class)
+# Creation interval in seconds (one new message every 25 to 35 seconds)
+Events1.interval = 60,70
+# Message sizes (500kB - 1MB)
+Events1.size = 500k,1M
+# range of message source/destination addresses
+Events1.hosts = 0,12
+# Message ID prefix
+Events1.prefix = GPS_
+Events1.behaviour = N
+
+# Class of the second event generator
+Events2.class = MessageEventGenerator
+# (following settings are specific for the MessageEventGenerator class)
+# Creation interval in seconds (one new message every 25 to 35 seconds)
+Events2.interval = 60,70
+Events2.dynamicInterval = 60,70
+# Message sizes (10kB - 1MB)
+Events2.size = 10k,1M
+# range of message source/destination addresses
+Events2.hosts = 0,12
+# Message ID prefix
+Events2.prefix = VICTIM_
+Events2.behaviour = D
+
+# Class of the third event generator
+Events3.class = MessageEventGenerator
+# (following settings are specific for the MessageEventGenerator class)
+# Creation interval in seconds (one new message every 25 to 35 seconds)
+Events3.interval = 60,70
+Events3.dynamicInterval = 60,70
+# Message sizes (10kB - 1MB)
+Events3.size = 10k,1M
+# range of message source/destination addresses
+Events3.hosts = 0,12
+# Message ID prefix
+Events3.prefix = FOOD_
+Events3.behaviour = D
+
+# Class of the fourth event generator
+Events4.class = MessageEventGenerator
+# (following settings are specific for the MessageEventGenerator class)
+# Creation interval in seconds (one new message every 25 to 35 seconds)
+Events4.interval = 60,70
+Events4.dynamicInterval = 60,70
+# Message sizes (10kB - 1MB)
+Events4.size = 10k,1M
+# range of message source/destination addresses
+Events4.hosts = 0,12
+# Message ID prefix
+Events4.prefix = SHELTER_
+Events4.behaviour = D
+
+# Class of the fifth event generator
+Events5.class = MessageEventGenerator
+# (following settings are specific for the MessageEventGenerator class)
+# Creation interval in seconds (one new message every 25 to 35 seconds)
+Events5.interval = 60,70
+Events5.dynamicInterval = 60,70
+# Message sizes (10kB - 1MB)
+Events5.size = 10k,1M
+# range of message source/destination addresses
+Events5.hosts = 0,12
+# Message ID prefix
+Events5.prefix = HEALTH_
+Events5.behaviour = D
+
+## Movement model settings
+# seed for movement models' pseudo random number generator (default = 0)
+MovementModel.rngSeed = 1
+# World's size for Movement Models without implicit size (width, height; meters)
+MovementModel.worldSize = 6000,6000
+# How long time to move hosts in the world before real simulation
+MovementModel.warmup = 1000
+
+## Map based movement -movement model specific settings
+MapBasedMovement.nrofMapFiles = 4
+
+MapBasedMovement.mapFile1 = data/roads.wkt
+MapBasedMovement.mapFile2 = data/data/cluster/ferryroute.wkt
+MapBasedMovement.mapFile3 = data/pedestrian_paths.wkt
+MapBasedMovement.mapFile4 = data/shops.wkt
+
+
+## Reports
+Report.nrofReports = 2
+Report.warmup = 0
+Report.reportDir = reports/test
+Report.report1 = MessageStatsReport
+Report.report2 = EventLogReport
+
+## Optimization settings -- these affect the speed of the simulation
+## see World class for details.
+Optimization.connectionAlg = 2
+Optimization.cellSizeMult = 5
+Optimization.randomizeUpdateOrder = true
+
+## Default settings for some routers settings
+ProphetRouter.secondsInTimeUnit = 30
+SprayAndWaitRouter.nrofCopies = 6
+SprayAndWaitRouter.binaryMode = true
+
+## Optimization settings -- these affect the speed of the simulation
+## see World class for details.
+Optimization.cellSizeMult = 5
+Optimization.randomizeUpdateOrder = true
+
+## GUI settings
+
+# GUI underlay image settings
+GUI.UnderlayImage.fileName = data/helsinki_underlay.png
+# Image offset in pixels (x, y)
+GUI.UnderlayImage.offset = 64, 20
+# Scaling factor for the image
+GUI.UnderlayImage.scale = 4.75
+# Image rotation (radians)
+GUI.UnderlayImage.rotate = -0.015
+
+# how many events to show in the log panel (default = 30)
+GUI.EventLogPanel.nrofEvents = 100
+# Regular Expression log filter (see Pattern-class from the Java API for RE-matching details)
+#GUI.EventLogPanel.REfilter = .*p[1-9]<->p[1-9]$

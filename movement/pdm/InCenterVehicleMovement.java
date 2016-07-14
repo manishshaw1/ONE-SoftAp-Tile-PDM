@@ -55,13 +55,13 @@ public class InCenterVehicleMovement extends MapBasedMovement {
 		this.homeCenterType = settings.getSetting("homeCenterType");
 		this.targets = settings.getCsvSetting("targetCenters");
 
-		/*String[] values = settings.getCsvSetting("waypoints");
+		String[] values = settings.getCsvSetting("waypoints");
 		waypoints = new Coord[values.length / 2];
 		for (int i = 0; i < values.length / 2; i++) {
 			waypoints[i] = new Coord(Double.parseDouble(values[i * 2]),
-					Double.parseDouble(values[i * 2 + 1]));
+			Double.parseDouble(values[i * 2 + 1]));
 			System.out.println(waypoints[i]);
-		}*/
+		}
 
 		this.map = getMap();
 		this.pathFinder = new DijkstraPathFinder(getOkMapNodeTypes());

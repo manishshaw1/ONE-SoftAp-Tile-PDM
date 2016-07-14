@@ -3,9 +3,7 @@
  * Released under GPLv3. See LICENSE.txt for details. 
  */
 package movement;
-
 import java.util.List;
-
 import core.SettingsError;
 import movement.map.DijkstraPathFinder;
 import movement.map.MapNode;
